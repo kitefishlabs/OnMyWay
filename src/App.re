@@ -37,8 +37,6 @@ let rationale =
     ~buttonNegative = "No way",
     ~buttonNeutral = "Uh?", ());
 
-[@bs.module "react-n"]
-
 /*
  Here is StyleSheet that is using Style module to define styles for your components
  The main different with JavaScript components you may encounter in React Native
