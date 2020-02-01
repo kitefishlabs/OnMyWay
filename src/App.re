@@ -106,22 +106,21 @@ module LocationTracker = {
       } else {
         open Js.Result;
         let p1 = PermissionsAndroid.requestWithRationale(PermissionsAndroid.Permission.accessFineLocation, rationale);
-        let p2 = 
+        let p2 =
           p1
-          |> Repromise.Rejectable.fromJsPromise
-          |> Repromise.Rejectable.map(res => Ok(res))
-          |> Repromise.Rejectable.catch(err => Repromise.resolved(Error(err)));
-      
-        p2 |> Repromise.wait(fun 
+          ->Promise.Js.fromBsPromise
+          ->Promise.Js.toResult;
+
+        p2->Promise.get(fun
           | Ok(v) => {
               Js.log("ok");
-              Js.log(v); 
+              Js.log(v);
               if (v == PermissionsAndroid.Result.granted) {
                 setTrackingLoc(_ => true);
                 ()
-              } else { 
+              } else {
                 setTrackingLoc(_ => false);
-              }; 
+              };
             }
           | Error(e) => {
               Js.log(e);
@@ -140,7 +139,7 @@ module LocationTracker = {
 
           let w = makeWatchPosition(
             { pos => {
-                Js.log("success"); 
+                Js.log("success");
                 Js.log(pos##coords##longitude);
                 Js.log(pos##coords##latitude);
                 ()
@@ -173,14 +172,14 @@ module LocationTracker = {
       [|trackingLoc|],
     );
 
-    let stateString = 
-      if (trackingLoc) 
-      { 
+    let stateString =
+      if (trackingLoc)
+      {
         "Geolocation service IS ACTIVE - touch to deactivate."->React.string;
       } else {
         "Geolocation service is inactive - touch to ACTIVATE."->React.string;
       };
-    
+
     // ...
 
       <TouchableOpacity
@@ -189,7 +188,7 @@ module LocationTracker = {
           {stateString}
         </Text>
       </TouchableOpacity>
-    
+
   };
 };
 
