@@ -14,7 +14,7 @@
   "dependencies": {
     "@aantron/repromise": "^0.6.1",
     "react": "^16.8.0",
-    "react-native": "^0.60.0",
+    "react-native": "^0.62.3",
     "react-native-geolocation-service": "^3.1.0",
     "reason-react": "^0.7.0",
     "reason-react-native": "^0.60.0"
